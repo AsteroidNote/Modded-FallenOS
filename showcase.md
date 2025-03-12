@@ -2,7 +2,7 @@
 
 ## Intro Screen
 
-![Intro](https://imgur.com/o5qG3nt)
+![Intro](https://i.imgur.com/o5qG3nt.png)
 
 ## Menu Screen
 
