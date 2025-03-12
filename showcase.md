@@ -6,12 +6,12 @@
 
 ## Menu Screen
 
-![Menu](https://imgur.com/abZlicy)
+![Menu](https://i.imgur.com/abZlicy.png)
 
 ## Freeplay Menu
 
-![Freeplay](https://imgur.com/l1tnoOr)
+![Freeplay](https://i.imgur.com/l1tnoOr.png)
 
 ## Result Screen
 
-![Result](https://imgur.com/FEln6Sh)
+![Result](https://i.imgur.com/FEln6Sh.png)
