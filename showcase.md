@@ -1,4 +1,4 @@
-# Here is a quick showcase on how the mod looks!
+# Here is a quick showcase on how the modification of the mod looks!
 
 ## Intro Screen
 
