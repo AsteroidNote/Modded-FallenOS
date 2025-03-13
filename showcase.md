@@ -16,9 +16,9 @@
 
 ## Glitch Screens!
 
-![Gif1](https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWwwanVjNnNta2h1a2hhNzV1eGw3ZTc0MHdhdjFlOGZkM2l2ZzEydiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/8vXrgQx3jmvBUCjuOn/giphy.gif)
-![Gif2](https://s6.gifyu.com/images/bb5XH.gif)
-![Gif3](https://s6.gifyu.com/images/bb5Xm.gif)
+![Gif1](https://github.com/AsteroidNote/Modded-FallenOS/blob/main/!media/gif1.gif?raw=true)
+![Gif2](https://github.com/AsteroidNote/Modded-FallenOS/blob/main/!media/gif2.gif?raw=true)
+![Gif3](https://github.com/AsteroidNote/Modded-FallenOS/blob/main/!media/gif3.gif?raw=true)
 
 ## Custom Icon!
 
