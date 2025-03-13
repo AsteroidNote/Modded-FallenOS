@@ -6,7 +6,7 @@
 
 ## Menu Screen
 
-![Menu](https://i.imgur.com/abZlicy.png)
+![Menu](https://i.imgur.com/q6bxcTw.png)
 
 ## Freeplay Menu
 
