@@ -17,7 +17,7 @@
 ## Custom Icon
 
 ### The "Operator" and "Cinder" icons have been replaced by a custom icon made by me.
-#### The "Cinder" icon is the normal custom icon and the "Operator" icon is the flipped version.
+#### The "Cinder" icon is the normal custom icon and the "Operator" icon is the flipped version. (When you use them for your side, otherwise it's the other way around.)
 #### You can use them from the Chart Editor.
 
 ![Icon](https://i.imgur.com/A1EEWAx.png)
