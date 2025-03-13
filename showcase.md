@@ -17,8 +17,8 @@
 ## Glitch Screens!
 
 ![Gif1](https://s6.gifyu.com/images/bb5Pl.gif)
-![Gif2](
-![Gif3](
+![Gif2](https://s6.gifyu.com/images/bb5XH.gif)
+![Gif3](https://s6.gifyu.com/images/bb5Xm.gif)
 
 ## Custom Icon!
 
