@@ -17,8 +17,8 @@
 ## Glitch Screens!
 
 ![Gif1](https://github.com/AsteroidNote/Modded-FallenOS/blob/main/!media/gif1.gif?raw=true)
-![Gif2](https://github.com/AsteroidNote/Modded-FallenOS/blob/main/!media/gif2.gif?raw=true)
 ![Gif3](https://github.com/AsteroidNote/Modded-FallenOS/blob/main/!media/gif3.gif?raw=true)
+![Gif2](https://github.com/AsteroidNote/Modded-FallenOS/blob/main/!media/gif2.gif?raw=true)
 
 ## Custom Icon!
 
