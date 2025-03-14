@@ -14,6 +14,11 @@
 ![Freeplay2](https://i.imgur.com/zxROg1o.png)
 ![Freeplay3](https://i.imgur.com/9UN5oo1.png)
 
+## Custom Notes!
+
+![Gif4](https://github.com/AsteroidNote/Modded-FallenOS/blob/main/!media/gif4.gif?raw=true)
+![Gif5](https://github.com/AsteroidNote/Modded-FallenOS/blob/main/!media/gif5.gif?raw=true)
+
 ## Glitch Screens!
 
 ![Gif1](https://github.com/AsteroidNote/Modded-FallenOS/blob/main/!media/gif1.gif?raw=true)
