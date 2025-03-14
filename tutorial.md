@@ -7,6 +7,10 @@
 ## !IMPORTANT NOTE!
 ### You must have the Menus Style set to "FallenCity" in order to work!! (options > game settings > hud customization > menus style)
 
+##
+### To get the custom notes, all you have to do is to download the "circle" file and replace it in the "images" file in your mod from the "shared" file (assets > shared > images).
+#### The file replaces the "circle" notes. (It won't work if you don't use the "Circle" notes!)
+
 ## 
 ### If you want a custom song in the mod, download the "music" file and replace the "music" file in your mod (assets > music).
 #### It replaces the "Recreated OS" song. (It won't work if you don't have the "Recreated OS" Menu Theme activated!!)
