@@ -4,6 +4,10 @@
 ### After you made sure that you have the mod, all you have to do is to download the "icons", "menuBGS", "logo.png" and "glitch.png" files and replace them in the "images" file in your mod (assets > images).
 #### My version of these files replaces your intro, logo, menu, freeplay and results background, some icons and the glitch screen (death, pause and glitch screens).
 
+##
+### To get my custom command prompt, you have to download the "hazard" file and replace it in the "hazard" file in your mod (assets > images).
+#### My version of this file will replace all your command prompts from the mod with a darker version.
+
 ## !IMPORTANT NOTE!
 ### You must have the Menus Style set to "FallenCity" in order to work!! (options > game settings > hud customization > menus style)
 
