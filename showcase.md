@@ -14,6 +14,12 @@
 ![Freeplay2](https://i.imgur.com/zxROg1o.png)
 ![Freeplay3](https://i.imgur.com/9UN5oo1.png)
 
+## Custom Command Prompt!
+
+![Prompt1](https://i.imgur.com/fuxpFmW.png)
+![Prompt2](https://i.imgur.com/JLVty9E.png)
+![Prompt3](https://i.imgur.com/vxnx6CG.png)
+
 ## Custom Notes!
 
 ![Gif4](https://github.com/AsteroidNote/Modded-FallenOS/blob/main/!media/gif4.gif?raw=true)
