@@ -14,4 +14,4 @@
 ## Custom Song!
 ### If you want a custom song in the mod, download the "music" file and replace the "music" file in your mod (assets > music). It replaces the "Recreated OS" song. (It won't work if you don't have the "Recreated OS" Menu Theme activated!!) (The song is "Don't do it" by yvncc.)
 
-## This is it! Have fun with my modded version of FallenOS!! :D
+# This is it! Have fun with my modded version of FallenOS!! :D
