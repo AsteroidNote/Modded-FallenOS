@@ -14,6 +14,36 @@
 ![Freeplay2](https://i.imgur.com/zxROg1o.png)
 ![Freeplay3](https://i.imgur.com/9UN5oo1.png)
 
+## Custom Animated Backgrounds for all songs except QT songs and Redacted and Custom effects for Inhuman Songs (eyes, warning outlines and pincers)!
+
+### Tranquility
+![1](https://www.youtube.com/watch?v=2iYuK9oBIgQ)
+### HardDrive
+![2](https://www.youtube.com/watch?v=x09qaOuX7Jc)
+### Incident
+![3](https://www.youtube.com/watch?v=pisoAFcd8C4)
+### Interlope
+![4](https://www.youtube.com/watch?v=g-Ay71xwHw4)
+### Operator
+![5](https://www.youtube.com/watch?v=wx7nnl5daZo)
+### Massacre
+![6](https://www.youtube.com/watch?v=D_6vT1vc_4Y)
+### Overload
+![7](https://www.youtube.com/watch?v=hRWjHYjOaBA)
+### Kill Switch
+![8](https://www.youtube.com/watch?v=sLcXeV7_Q_M)
+### Her
+![9](https://www.youtube.com/watch?v=dDDgsblm0e0)
+### Emergency Reset
+![10](https://www.youtube.com/watch?v=HoRuIX4ghcA)
+
+## Custom Animated Backgrounds with effects for Uncontrolled Reaction and Pr0cess1ng_An0maly!
+
+### Pr0cess1ng_An0maly
+![11](https://www.youtube.com/watch?v=W8z2ivh6JJE)
+### Uncontrolled Reaction
+![12](https://www.youtube.com/watch?v=Q_MuDZnp8jI)
+
 ## Custom Command Prompt!
 
 ![Prompt1](https://i.imgur.com/fuxpFmW.png)
