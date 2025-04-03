@@ -14,7 +14,7 @@
 ![Freeplay2](https://i.imgur.com/zxROg1o.png)
 ![Freeplay3](https://i.imgur.com/9UN5oo1.png)
 
-## Custom Animated Backgrounds for all songs except QT songs and Redacted and Custom effects for Inhuman Songs (eyes, warning outlines and pincers)!
+## Custom Animated Backgrounds for all songs (except QT songs and Redacted) and Custom effects for Inhuman Songs (eyes, warning outlines and pincers)!
 
 ### Tranquility
 [![Modded Fallen OS](https://img.youtube.com/vi/2iYuK9oBIgQ/0.jpg)](https://www.youtube.com/watch?v=2iYuK9oBIgQ "Modded FallenOS")
