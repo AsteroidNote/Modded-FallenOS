@@ -19,30 +19,30 @@
 ### Tranquility
 [![Modded Fallen OS](https://img.youtube.com/vi/2iYuK9oBIgQ/0.jpg)](https://www.youtube.com/watch?v=2iYuK9oBIgQ "Modded FallenOS")
 ### HardDrive
-![2](https://www.youtube.com/watch?v=x09qaOuX7Jc)
+[![2](https://img.youtube.com/vi/x09qaOuX7Jc/0.jpg)](https://www.youtube.com/watch?v=x09qaOuX7Jc)
 ### Incident
-![3](https://www.youtube.com/watch?v=pisoAFcd8C4)
+[![3](https://img.youtube.com/vi/pisoAFcd8C4/0.jpg)](https://www.youtube.com/watch?v=pisoAFcd8C4)
 ### Interlope
-![4](https://www.youtube.com/watch?v=g-Ay71xwHw4)
+[![4](https://img.youtube.com/vi/g-Ay71xwHw4/0.jpg)](https://www.youtube.com/watch?v=g-Ay71xwHw4)
 ### Operator
-![5](https://www.youtube.com/watch?v=wx7nnl5daZo)
+[![5](https://img.youtube.com/vi/wx7nnl5daZo/0.jpg)](https://www.youtube.com/watch?v=wx7nnl5daZo)
 ### Massacre
-![6](https://www.youtube.com/watch?v=D_6vT1vc_4Y)
+[![6](https://img.youtube.com/vi/D_6vT1vc_4Y/0.jpg)](https://www.youtube.com/watch?v=D_6vT1vc_4Y)
 ### Overload
-![7](https://www.youtube.com/watch?v=hRWjHYjOaBA)
+[![7](https://img.youtube.com/vi/hRWjHYjOaBA/0.jpg)](https://www.youtube.com/watch?v=hRWjHYjOaBA)
 ### Kill Switch
-![8](https://www.youtube.com/watch?v=sLcXeV7_Q_M)
+[![8](https://img.youtube.com/vi/sLcXeV7_Q_M/0.jpg)](https://www.youtube.com/watch?v=sLcXeV7_Q_M)
 ### Her
-![9](https://www.youtube.com/watch?v=dDDgsblm0e0)
+[![9](https://img.youtube.com/vi/dDDgsblm0e0/0.jpg)](https://www.youtube.com/watch?v=dDDgsblm0e0)
 ### Emergency Reset
-![10](https://www.youtube.com/watch?v=HoRuIX4ghcA)
+[![10](https://img.youtube.com/vi/HoRuIX4ghcA/0.jpg)](https://www.youtube.com/watch?v=HoRuIX4ghcA)
 
-## Custom Animated Backgrounds with effects for Uncontrolled Reaction and Pr0cess1ng_An0maly!
+## Custom Animated Backgrounds with effects for Uncontrolled Reaction and Pr0cess1ng_An0maly[!
 
 ### Pr0cess1ng_An0maly
-![11](https://www.youtube.com/watch?v=W8z2ivh6JJE)
+[![11](https://img.youtube.com/vi/W8z2ivh6JJE/0.jpg)](https://www.youtube.com/watch?v=W8z2ivh6JJE)
 ### Uncontrolled Reaction
-![12](https://www.youtube.com/watch?v=Q_MuDZnp8jI)
+[![12](https://img.youtube.com/vi/Q_MuDZnp8jI/0.jpg)](https://www.youtube.com/watch?v=Q_MuDZnp8jI)
 
 ## Custom Command Prompt!
 
