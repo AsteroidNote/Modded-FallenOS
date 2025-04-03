@@ -5,6 +5,14 @@
 ### After you made sure that you have the mod, all you have to do is to download the "icons", "menuBGS", "logo.png" and "glitch.png" files and replace them in the "images" file in your mod (assets > images). My version of these files replaces your intro, logo, menu, freeplay and results background, some icons and the glitch screen (death, pause and glitch screens).
 ### !IMPORTANT NOTE! You must have the Menus Style set to "FallenCity" in order to work!! (options > game settings > hud customization > menus style)
 
+## Custom Animated Backgrounds with effects for Uncontrolled Reaction and Pr0cess1ng_An0maly
+
+### To get it, download the "hazard-week" folder and replace it in assets > shared > images. Download the "hazardous-zone.lua" file and replace it in assets > stages.
+
+## Custom Animated Backgrounds for all songs except QT songs and Redacted and Custom effects for Inhuman Songs (eyes, warning outlines and pincers)
+
+### To get it, download the "yama-alley.json" and "yama-alley.lua" files and replace them in assets > stages. Then download the "data" folder and replace it in assets. For the effects, download the "inhumanPack" and replace it in assets > shared > images.
+
 ## Custom Command Prompt!
 ### To get my custom command prompt, you have to download the "hazard" file and replace it in the "images" file in your mod (assets > images).My version of this file will replace all your command prompts from the mod with a darker version.
 
