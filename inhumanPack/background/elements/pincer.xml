@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="pincer.png">
+<SubTexture name="moving0000" x="0" y="0" width="475" height="241" frameX="-12" frameY="-17" frameWidth="522" frameHeight="293" />
+<SubTexture name="moving0001" x="0" y="241" width="474" height="214" frameX="-12" frameY="-29" frameWidth="522" frameHeight="293" />
+<SubTexture name="moving0002" x="475" y="0" width="484" height="204" frameX="-12" frameY="-34" frameWidth="522" frameHeight="293" />
+<SubTexture name="moving0003" x="0" y="241" width="474" height="214" frameX="-12" frameY="-29" frameWidth="522" frameHeight="293" />
+</TextureAtlas>

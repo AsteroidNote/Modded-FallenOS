@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="anbyTaunt.png">
+<SubTexture name="anby0000" x="0" y="0" width="683" height="618" frameX="-364" frameY="-122" frameWidth="1286" frameHeight="730" />
+<SubTexture name="anby0001" x="683" y="0" width="683" height="615" frameX="-364" frameY="-125" frameWidth="1286" frameHeight="730" />
+</TextureAtlas>

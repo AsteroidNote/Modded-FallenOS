@@ -1,0 +1,29 @@
+Player
+Opponent
+
+Anby
+Anby-Tired
+Mike
+Annie
+Bonnie
+
+BF
+BF-Scared
+BF 404
+GF
+GF 404
+QT
+Nervous-QT
+QT&KB
+QT&KB-404
+QT&KB-404-Angry
+
+Ashley
+Hazard
+Amelia
+Amelia-with-Cinder
+KB
+Cinder
+Yama
+Yama-Confused
+Yama-Tired

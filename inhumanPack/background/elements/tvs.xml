@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="tvs.png">
+<SubTexture name="tvs-prepare0000" x="1513" y="280" width="1513" height="280" frameX="0" frameY="0" frameWidth="1503" frameHeight="270" />
+<SubTexture name="tvs-prepare0001" x="1513" y="560" width="1513" height="280" frameX="0" frameY="0" frameWidth="1503" frameHeight="270" />
+<SubTexture name="tvs-prepare0002" x="1513" y="840" width="1513" height="280" frameX="0" frameY="0" frameWidth="1503" frameHeight="270" />
+<SubTexture name="tvs-alert0000" x="0" y="0" width="1513" height="280" frameX="0" frameY="0" frameWidth="1503" frameHeight="270" />
+<SubTexture name="tvs-alert0001" x="0" y="280" width="1513" height="280" frameX="0" frameY="0" frameWidth="1503" frameHeight="270" />
+<SubTexture name="tvs-alert0002" x="0" y="560" width="1513" height="280" frameX="0" frameY="0" frameWidth="1503" frameHeight="270" />
+<SubTexture name="tvs-alert0003" x="0" y="840" width="1513" height="280" frameX="0" frameY="0" frameWidth="1503" frameHeight="270" />
+<SubTexture name="tvs-alert0004" x="0" y="1120" width="1513" height="280" frameX="0" frameY="0" frameWidth="1503" frameHeight="270" />
+<SubTexture name="tvs-alert0005" x="1513" y="0" width="1513" height="280" frameX="0" frameY="0" frameWidth="1503" frameHeight="270" />
+<SubTexture name="tvs-alert0006" x="1513" y="280" width="1513" height="280" frameX="0" frameY="0" frameWidth="1503" frameHeight="270" />
+<SubTexture name="tvs-alert0007" x="1513" y="560" width="1513" height="280" frameX="0" frameY="0" frameWidth="1503" frameHeight="270" />
+<SubTexture name="tvs-alert0008" x="1513" y="840" width="1513" height="280" frameX="0" frameY="0" frameWidth="1503" frameHeight="270" />
+<SubTexture name="tvs-bsod0000" x="1513" y="1120" width="1513" height="280" frameX="0" frameY="0" frameWidth="1503" frameHeight="270" />
+<SubTexture name="tvs-glitch0000" x="0" y="1400" width="1513" height="280" frameX="0" frameY="0" frameWidth="1503" frameHeight="270" />
+</TextureAtlas>

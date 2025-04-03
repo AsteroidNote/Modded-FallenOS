@@ -1,0 +1,957 @@
+function onCreate()
+    setProperty('skipArrowStartTween', true) -- really good thing
+
+    if difficultyName == 'Too Hard' then
+        -- adding "! Chart Modiciation !" warning - I think it's cool 
+        makeLuaText('warningText','! Chart Modification !',2050,0,525)
+        setObjectCamera('warningText','hud')
+        setProperty('warningText.color',getColorFromHex('FF0000'))
+        setTextSize('warningText',32)
+        screenCenter('warningText', 'x')
+        addLuaText('warningText')
+        setProperty('warningText.alpha', 0)
+    end
+end
+function onCreatePost()
+    noteTweenAlpha('playerNote0Alpha', 0, 0, 0.005/getProperty('playbackRate'), 'sineInOut')
+    noteTweenAlpha('playerNote1Alpha', 1, 0, 0.005/getProperty('playbackRate'), 'sineInOut')
+    noteTweenAlpha('playerNote2Alpha', 2, 0, 0.005/getProperty('playbackRate'), 'sineInOut')
+    noteTweenAlpha('playerNote3Alpha', 3, 0, 0.005/getProperty('playbackRate'), 'sineInOut')
+    noteTweenAlpha('playerNote4Alpha', 4, 0, 0.005/getProperty('playbackRate'), 'sineInOut')
+    noteTweenAlpha('playerNote5Alpha', 5, 0, 0.005/getProperty('playbackRate'), 'sineInOut')
+    noteTweenAlpha('playerNote6Alpha', 6, 0, 0.005/getProperty('playbackRate'), 'sineInOut')
+    noteTweenAlpha('playerNote7Alpha', 7, 0, 0.005/getProperty('playbackRate'), 'sineInOut')
+end
+
+local pincerEffect = false
+local BSODEffect = false
+local shakePincerEffect = false
+function onUpdate(elapsed)
+    -- note effect recreation ig
+    beat = (getPropertyFromClass('Conductor', 'songPosition')/1000) * (bpm / 120)
+    if BSODEffect == true then
+        for i = 0,7 do 
+            setPropertyFromGroup('strumLineNotes', i, 'y', defaultPlayerStrumY0 + 15 * math.cos((beat + i*0.25) * math.pi))
+            setPropertyFromGroup('strumLineNotes', 0, 'x', defaultOpponentStrumX0 + 15 * math.cos((beat + i*0.25) * math.pi));
+            setPropertyFromGroup('strumLineNotes', 1, 'x', defaultOpponentStrumX1 + 20 * math.cos((beat + i*0.25) * math.pi));
+            setPropertyFromGroup('strumLineNotes', 2, 'x', defaultOpponentStrumX2 + 25 * math.cos((beat + i*0.25) * math.pi));
+            setPropertyFromGroup('strumLineNotes', 3, 'x', defaultOpponentStrumX3 + 20 * math.cos((beat + i*0.25) * math.pi));
+            setPropertyFromGroup('strumLineNotes', 4, 'x', defaultPlayerStrumX0 + 15 * math.cos((beat + i*0.25) * math.pi));
+            setPropertyFromGroup('strumLineNotes', 5, 'x', defaultPlayerStrumX1 + 20 * math.cos((beat + i*0.25) * math.pi));
+            setPropertyFromGroup('strumLineNotes', 6, 'x', defaultPlayerStrumX2 + 25 * math.cos((beat + i*0.25) * math.pi));
+            setPropertyFromGroup('strumLineNotes', 7, 'x', defaultPlayerStrumX3 + 20 * math.cos((beat + i*0.25) * math.pi));
+        end
+        cameraShake('camGame', 0.0025, 0.25/getProperty('playbackRate'))
+        cameraShake('camHUD', 0.0005, 0.25/getProperty('playbackRate'))
+    end
+    if pincerEffect == true then
+        setPropertyFromGroup('strumLineNotes', 4, 'x', defaultPlayerStrumX0 + 15 * math.cos((beat + 4*0.25) * math.pi));
+        setPropertyFromGroup('strumLineNotes', 5, 'x', defaultPlayerStrumX1 + 20 * math.cos((beat + 5*0.25) * math.pi));
+        setPropertyFromGroup('strumLineNotes', 6, 'x', defaultPlayerStrumX2 + 25 * math.cos((beat + 6*0.25) * math.pi));
+        setPropertyFromGroup('strumLineNotes', 7, 'x', defaultPlayerStrumX3 + 20 * math.cos((beat + 7*0.25) * math.pi));
+        pincerTweenX("NoteMovePincer1X",1,getPropertyFromGroup('strumLineNotes', 4, 'x'), 0.015/getProperty('playbackRate'), 'sineInOut')
+        pincerTweenX("NoteMovePincer2X",2,getPropertyFromGroup('strumLineNotes', 5, 'x'), 0.015/getProperty('playbackRate'), 'sineInOut')
+        pincerTweenX("NoteMovePincer3X",3,getPropertyFromGroup('strumLineNotes', 6, 'x'), 0.015/getProperty('playbackRate'), 'sineInOut')
+        pincerTweenX("NoteMovePincer4X",4,getPropertyFromGroup('strumLineNotes', 7, 'x'), 0.015/getProperty('playbackRate'), 'sineInOut')
+    end
+    if shakePincerEffect == true then
+        setProperty('camHUD.angle', math.sin(((getSongPosition()/crochet)*math.pi))*5)
+        if downscroll then
+            setProperty('camHUD.x', math.sin(((getSongPosition()/crochet)*math.pi))*35)
+        else
+            setProperty('camHUD.x', math.sin(((getSongPosition()/crochet)*math.pi))*-35)
+        end
+    end
+end
+
+local allowBounce = true
+function opponentNoteHit(membersIndex, noteData, noteType, isSustainNote)
+    if allowBounce and not isSustainNote then
+        if downscroll then
+            if noteData == 0 then
+                noteTweenY("NoteBounce1Y",0,defaultPlayerStrumY0+25, 0.015/getProperty('playbackRate'), 'sineInOut')
+            end
+            if noteData == 1 then
+                noteTweenY("NoteBounce2Y",1,defaultPlayerStrumY1+25, 0.015/getProperty('playbackRate'), 'sineInOut')
+            end
+            if noteData == 2 then
+                noteTweenY("NoteBounce3Y",2,defaultPlayerStrumY2+25, 0.015/getProperty('playbackRate'), 'sineInOut')
+            end
+            if noteData == 3 then
+                noteTweenY("NoteBounce4Y",3,defaultPlayerStrumY3+25, 0.015/getProperty('playbackRate'), 'sineInOut')
+            end
+        else
+            if noteData == 0 then
+                noteTweenY("NoteBounce1Y",0,defaultPlayerStrumY0-25, 0.015/getProperty('playbackRate'), 'sineInOut')
+            end
+            if noteData == 1 then
+                noteTweenY("NoteBounce2Y",1,defaultPlayerStrumY1-25, 0.015/getProperty('playbackRate'), 'sineInOut')
+            end
+            if noteData == 2 then
+                noteTweenY("NoteBounce3Y",2,defaultPlayerStrumY2-25, 0.015/getProperty('playbackRate'), 'sineInOut')
+            end
+            if noteData == 3 then
+                noteTweenY("NoteBounce4Y",3,defaultPlayerStrumY3-25, 0.015/getProperty('playbackRate'), 'sineInOut')
+            end
+        end
+    end
+end
+
+function onTweenCompleted(tag)
+    if tag == 'NoteBounce1Y' then
+        noteTweenY("NoteBounceO1YF",0,defaultPlayerStrumY0, 0.15/getProperty('playbackRate'), 'sineInOut')
+    end
+    if tag == 'NoteBounce2Y' then
+        noteTweenY("NoteBounceO2YF",1,defaultPlayerStrumY1, 0.15/getProperty('playbackRate'), 'sineInOut')
+    end
+    if tag == 'NoteBounce3Y' then
+        noteTweenY("NoteBounceO3YF",2,defaultPlayerStrumY2, 0.15/getProperty('playbackRate'), 'sineInOut')
+    end
+    if tag == 'NoteBounce4Y' then
+        noteTweenY("NoteBounceO4YF",3,defaultPlayerStrumY3, 0.15/getProperty('playbackRate'), 'sineInOut')
+    end
+end
+
+function onSongStart()
+    if getPropertyFromClass('ClientPrefs','opponentStrums') then
+        if middlescroll then
+            noteTweenAlpha('playerNote0Alpha', 0, 0.35, 1/getProperty('playbackRate'), 'sineInOut')
+        else
+            noteTweenAlpha('playerNote0Alpha', 0, 1, 1/getProperty('playbackRate'), 'sineInOut')
+        end
+    end
+    noteTweenAlpha('playerNote7Alpha', 7, 1, 1/getProperty('playbackRate'), 'sineInOut')
+    setPropertyFromGroup('strumLineNotes', 0, 'y', defaultPlayerStrumY0 + 25)
+    setPropertyFromGroup('strumLineNotes', 7, 'y', defaultPlayerStrumY0 + 25)
+    noteTweenY('playerNote0Y', 0, defaultOpponentStrumY0, 1/getProperty('playbackRate'), 'sineInOut')
+    noteTweenY('playerNote7Y', 7, defaultPlayerStrumY3, 1/getProperty('playbackRate'), 'sineInOut')
+    cameraShake('camGame', 0.0025, 1/getProperty('playbackRate'))
+    cameraShake('camHUD', 0.0005, 1/getProperty('playbackRate'))
+end
+
+function onBeatHit()
+    -- effects lmfao
+    if pincerFastMove == true then
+        if curBeat % 1 == 0 then
+            if downscroll then
+                pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0-40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0-40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer2Y",2,defaultPlayerStrumY1+40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove2Y",5,defaultPlayerStrumY1+40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer3Y",3,defaultPlayerStrumY2-40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove3Y",6,defaultPlayerStrumY2-40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3+40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3+40, 0.15/getProperty('playbackRate'), 'sineInOut')
+            else
+                pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0+40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0+40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer2Y",2,defaultPlayerStrumY1-40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove2Y",5,defaultPlayerStrumY1-40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer3Y",3,defaultPlayerStrumY2+40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove3Y",6,defaultPlayerStrumY2+40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3-40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3-40, 0.15/getProperty('playbackRate'), 'sineInOut')
+            end
+        end
+        if curBeat % 2 == 0 then
+            if downscroll then
+                pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0+40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0+40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer2Y",2,defaultPlayerStrumY1-40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove2Y",5,defaultPlayerStrumY1-40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer3Y",3,defaultPlayerStrumY2+40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove3Y",6,defaultPlayerStrumY2+40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3-40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3-40, 0.15/getProperty('playbackRate'), 'sineInOut')
+            else
+                pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0-40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0-40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer2Y",2,defaultPlayerStrumY1+40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove2Y",5,defaultPlayerStrumY1+40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer3Y",3,defaultPlayerStrumY2-40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove3Y",6,defaultPlayerStrumY2-40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3+40, 0.15/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3+40, 0.15/getProperty('playbackRate'), 'sineInOut')
+            end
+        end
+    end
+    
+    if pincerSlowMove == true then
+        if curBeat % 2 == 0 then
+            if downscroll then
+                pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0-40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0-40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer2Y",2,defaultPlayerStrumY1+40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove2Y",5,defaultPlayerStrumY1+40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer3Y",3,defaultPlayerStrumY2-40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove3Y",6,defaultPlayerStrumY2-40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3+40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3+40, 0.25/getProperty('playbackRate'), 'sineInOut')
+            else
+                pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0+40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0+40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer2Y",2,defaultPlayerStrumY1-40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove2Y",5,defaultPlayerStrumY1-40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer3Y",3,defaultPlayerStrumY2+40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove3Y",6,defaultPlayerStrumY2+40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3-40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3-40, 0.25/getProperty('playbackRate'), 'sineInOut')
+            end
+        end
+        if curBeat % 4 == 0 then
+            if downscroll then
+                pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0+40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0+40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer2Y",2,defaultPlayerStrumY1-40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove2Y",5,defaultPlayerStrumY1-40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer3Y",3,defaultPlayerStrumY2+40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove3Y",6,defaultPlayerStrumY2+40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3-40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3-40, 0.25/getProperty('playbackRate'), 'sineInOut')
+            else
+                pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0-40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0-40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer2Y",2,defaultPlayerStrumY1+40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove2Y",5,defaultPlayerStrumY1+40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer3Y",3,defaultPlayerStrumY2-40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove3Y",6,defaultPlayerStrumY2-40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3+40, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3+40, 0.25/getProperty('playbackRate'), 'sineInOut')
+            end
+        end
+    end
+
+    -- modchart no way!
+    if curBeat == 8 then
+        if getPropertyFromClass('ClientPrefs','opponentStrums') then
+            if middlescroll then
+                noteTweenAlpha('playerNote1Alpha', 1, 0.35, 1/getProperty('playbackRate'), 'sineInOut')
+            else
+                noteTweenAlpha('playerNote1Alpha', 1, 1, 1/getProperty('playbackRate'), 'sineInOut')
+            end
+        end
+        noteTweenAlpha('playerNote6Alpha', 6, 1, 1/getProperty('playbackRate'), 'sineInOut')
+        setPropertyFromGroup('strumLineNotes', 1, 'y', defaultPlayerStrumY0 + 25)
+        setPropertyFromGroup('strumLineNotes', 6, 'y', defaultPlayerStrumY0 + 25)
+        noteTweenY('playerNote1Y', 1, defaultOpponentStrumY1, 1/getProperty('playbackRate'), 'sineInOut')
+        noteTweenY('playerNote6Y', 6, defaultPlayerStrumY2, 1/getProperty('playbackRate'), 'sineInOut')
+        cameraShake('camGame', 0.0025, 1/getProperty('playbackRate'))
+        cameraShake('camHUD', 0.0005, 1/getProperty('playbackRate'))
+    end
+    if curBeat == 16 then
+        if getPropertyFromClass('ClientPrefs','opponentStrums') then
+            if middlescroll then
+                noteTweenAlpha('playerNote2Alpha', 2, 0.35, 1/getProperty('playbackRate'), 'sineInOut')
+            else
+                noteTweenAlpha('playerNote2Alpha', 2, 1, 1/getProperty('playbackRate'), 'sineInOut')
+            end
+        end
+        noteTweenAlpha('playerNote5Alpha', 5, 1, 1/getProperty('playbackRate'), 'sineInOut')
+        setPropertyFromGroup('strumLineNotes', 2, 'y', defaultPlayerStrumY0 + 25)
+        setPropertyFromGroup('strumLineNotes', 5, 'y', defaultPlayerStrumY0 + 25)
+        noteTweenY('playerNote2Y', 2, defaultOpponentStrumY2, 1/getProperty('playbackRate'), 'sineInOut')
+        noteTweenY('playerNote5Y', 5, defaultPlayerStrumY1, 1/getProperty('playbackRate'), 'sineInOut')
+        cameraShake('camGame', 0.0025, 1/getProperty('playbackRate'))
+        cameraShake('camHUD', 0.0005, 1/getProperty('playbackRate'))
+    end
+    if curBeat == 24 then
+        if getPropertyFromClass('ClientPrefs','opponentStrums') then
+            if middlescroll then
+                noteTweenAlpha('playerNote3Alpha', 3, 0.35, 1/getProperty('playbackRate'), 'sineInOut')
+            else
+                noteTweenAlpha('playerNote3Alpha', 3, 1, 1/getProperty('playbackRate'), 'sineInOut')
+            end
+        end
+        noteTweenAlpha('playerNote4Alpha', 4, 1, 1/getProperty('playbackRate'), 'sineInOut')
+        setPropertyFromGroup('strumLineNotes', 3, 'y', defaultPlayerStrumY0 + 25)
+        setPropertyFromGroup('strumLineNotes', 4, 'y', defaultPlayerStrumY0 + 25)
+        noteTweenY('playerNote3Y', 3, defaultOpponentStrumY3, 1/getProperty('playbackRate'), 'sineInOut')
+        noteTweenY('playerNote4Y', 4, defaultPlayerStrumY0, 1/getProperty('playbackRate'), 'sineInOut')
+        cameraShake('camGame', 0.0025, 1/getProperty('playbackRate'))
+        cameraShake('camHUD', 0.0005, 1/getProperty('playbackRate'))
+    end
+    -- just incase
+    if curBeat > 31 and curBeat < 1088 then
+        if getPropertyFromClass('ClientPrefs','opponentStrums') then
+            if middlescroll then
+                noteTweenAlpha('playerNote0Alpha', 0, 0.35, 0.5/getProperty('playbackRate'), nothing)
+                noteTweenAlpha('playerNote1Alpha', 1, 0.35, 0.5/getProperty('playbackRate'), nothing)
+                noteTweenAlpha('playerNote2Alpha', 2, 0.35, 0.5/getProperty('playbackRate'), nothing)
+                noteTweenAlpha('playerNote3Alpha', 3, 0.35, 0.5/getProperty('playbackRate'), nothing)
+            else
+                noteTweenAlpha('playerNote0Alpha', 0, 1, 0.5/getProperty('playbackRate'), nothing)
+                noteTweenAlpha('playerNote1Alpha', 1, 1, 0.5/getProperty('playbackRate'), nothing)
+                noteTweenAlpha('playerNote2Alpha', 2, 1, 0.5/getProperty('playbackRate'), nothing)
+                noteTweenAlpha('playerNote3Alpha', 3, 1, 0.5/getProperty('playbackRate'), nothing)
+            end
+        end
+        noteTweenAlpha('playerNote4Alpha', 4, 1, 0.5/getProperty('playbackRate'), nothing)
+        noteTweenAlpha('playerNote5Alpha', 5, 1, 0.5/getProperty('playbackRate'), nothing)
+        noteTweenAlpha('playerNote6Alpha', 6, 1, 0.5/getProperty('playbackRate'), nothing)
+        noteTweenAlpha('playerNote7Alpha', 7, 1, 0.5/getProperty('playbackRate'), nothing)
+    end
+
+    -- pincers
+    if curBeat == 320 then
+        pincerPrepare(3,false)
+    end
+    if curBeat == 322 then
+        pincerGrab(3)
+        if downscroll then
+            pincerTweenY("NoteMovePincer3Y",3,defaultPlayerStrumY2-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove3Y",6,defaultPlayerStrumY2-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+        else
+            pincerTweenY("NoteMovePincer3Y",3,defaultPlayerStrumY2+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove3Y",6,defaultPlayerStrumY2+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+        end
+    end
+    if curBeat == 324 then
+        pincerPrepare(3,true)
+    end
+
+    if curBeat == 336 then
+        pincerPrepare(1,false)
+        pincerPrepare(3,false)
+    end
+    if curBeat == 338 then
+        pincerGrab(1)
+        pincerGrab(3)
+        pincerTweenY("NoteMovePincer3Y",3, defaultPlayerStrumY2, 0.25/getProperty('playbackRate'), 'sineInOut')
+        noteTweenY("NoteMove3Y",6, defaultPlayerStrumY2, 0.25/getProperty('playbackRate'), 'sineInOut')
+        if downscroll then
+            pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+        else
+            pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+        end
+        pincerTweenX("NoteMovePincer1X",1,defaultPlayerStrumX0-25, 0.25/getProperty('playbackRate'), 'sineInOut')
+        noteTweenX("NoteMove1X",4,defaultPlayerStrumX0-25, 0.25/getProperty('playbackRate'), 'sineInOut')
+    end
+    if curBeat == 340 then
+        pincerPrepare(1,true)
+        pincerPrepare(3,true)
+    end
+    if curBeat == 352 then
+        pincerPrepare(1,false)
+        pincerPrepare(2,false)
+        pincerPrepare(4,false)
+    end
+    if curBeat == 354 then
+        pincerGrab(1)
+        pincerGrab(2)
+        pincerGrab(4)
+        pincerTweenX("NoteMovePincer1X",1,defaultPlayerStrumX0, 0.25/getProperty('playbackRate'), 'sineInOut')
+        noteTweenX("NoteMove1X",4,defaultPlayerStrumX0, 0.25/getProperty('playbackRate'), 'sineInOut')
+        pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0, 0.25/getProperty('playbackRate'), 'sineInOut')
+        noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0, 0.25/getProperty('playbackRate'), 'sineInOut')
+        if downscroll then
+            pincerTweenY("NoteMovePincer2Y",2,defaultPlayerStrumY0-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove2Y",5,defaultPlayerStrumY0-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY0-40, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove4Y",7,defaultPlayerStrumY0-40, 0.25/getProperty('playbackRate'), 'sineInOut')
+        else
+            pincerTweenY("NoteMovePincer2Y",2,defaultPlayerStrumY0+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove2Y",5,defaultPlayerStrumY0+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY0+40, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove4Y",7,defaultPlayerStrumY0+40, 0.25/getProperty('playbackRate'), 'sineInOut')
+        end
+        pincerTweenX("NoteMovePincer4X",4,defaultPlayerStrumX3+32, 0.25/getProperty('playbackRate'), 'sineInOut')
+        noteTweenX("NoteMove4X",7,defaultPlayerStrumX3+32, 0.25/getProperty('playbackRate'), 'sineInOut')
+    end
+    if curBeat == 356 then
+        pincerPrepare(1,true)
+        pincerPrepare(2,true)
+        pincerPrepare(4,true)
+    end
+    if curBeat == 368 then
+        pincerPrepare(1,false)
+        pincerPrepare(2,false)
+        pincerPrepare(3,false)
+        pincerPrepare(4,false)
+    end
+    if curBeat == 370 then
+        pincerGrab(1)
+        pincerGrab(2)
+        pincerGrab(3)
+        pincerGrab(4)
+        if downscroll then
+            pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0-32, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0-32, 0.25/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3-32, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3-32, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenAngle("NoteMove1Angle", 4, 32, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenAngle("NoteMove4Angle", 7, -32, 0.25/getProperty('playbackRate'), 'sineInOut')
+        else
+            pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0+32, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0+32, 0.25/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3+32, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3+32, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenAngle("NoteMove1Angle", 4, -32, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenAngle("NoteMove4Angle", 7, 32, 0.25/getProperty('playbackRate'), 'sineInOut')
+        end
+        pincerTweenY("NoteMovePincer2Y",2,defaultPlayerStrumY1, 0.25/getProperty('playbackRate'), 'sineInOut')
+        noteTweenY("NoteMove2Y",5,defaultPlayerStrumY1, 0.25/getProperty('playbackRate'), 'sineInOut')
+        pincerTweenY("NoteMovePincer3Y",3,defaultPlayerStrumY2, 0.25/getProperty('playbackRate'), 'sineInOut')
+        noteTweenY("NoteMove3Y",6,defaultPlayerStrumY2, 0.25/getProperty('playbackRate'), 'sineInOut')
+
+        pincerTweenX("NoteMovePincer1X",1,defaultPlayerStrumX0, 0.25/getProperty('playbackRate'), 'sineInOut')
+        noteTweenX("NoteMove1X",4,defaultPlayerStrumX0, 0.25/getProperty('playbackRate'), 'sineInOut')
+        pincerTweenX("NoteMovePincer2X",2,defaultPlayerStrumX1, 0.25/getProperty('playbackRate'), 'sineInOut')
+        noteTweenX("NoteMove2X",5,defaultPlayerStrumX1, 0.25/getProperty('playbackRate'), 'sineInOut')
+        pincerTweenX("NoteMovePincer3X",3,defaultPlayerStrumX2, 0.25/getProperty('playbackRate'), 'sineInOut')
+        noteTweenX("NoteMove3X",6,defaultPlayerStrumX2, 0.25/getProperty('playbackRate'), 'sineInOut')
+        pincerTweenX("NoteMovePincer4X",4,defaultPlayerStrumX3, 0.25/getProperty('playbackRate'), 'sineInOut')
+        noteTweenX("NoteMove4X",7,defaultPlayerStrumX3, 0.25/getProperty('playbackRate'), 'sineInOut')
+    end
+    if curBeat == 372 then
+        pincerPrepare(1,true)
+        pincerPrepare(2,true)
+        pincerPrepare(3,true)
+        pincerPrepare(4,true)
+    end
+    if curBeat == 380 then
+        pincerPrepare(1,false)
+        pincerPrepare(4,false)
+    end
+    if curBeat == 384 then
+        pincerGrab(1)
+        pincerGrab(4)
+        pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0+64, 0.75/getProperty('playbackRate'), 'sineInOut')
+        noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0+64, 0.75/getProperty('playbackRate'), 'sineInOut')
+        pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3-64, 0.75/getProperty('playbackRate'), 'sineInOut')
+        noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3-64, 0.75/getProperty('playbackRate'), 'sineInOut')
+    end
+    if curBeat == 388 then
+        pincerTweenX("NoteMovePincer1X",1,defaultPlayerStrumX3, 1/getProperty('playbackRate'), 'sineInOut')
+        noteTweenX("NoteMove1X",4,defaultPlayerStrumX3, 1/getProperty('playbackRate'), 'sineInOut')
+        pincerTweenX("NoteMovePincer4X",4,defaultPlayerStrumX0, 1/getProperty('playbackRate'), 'sineInOut')
+        noteTweenX("NoteMove4X",7,defaultPlayerStrumX0, 1/getProperty('playbackRate'), 'sineInOut')
+    end
+    if curBeat == 392 then
+        pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0, 0.75/getProperty('playbackRate'), 'sineInOut')
+        noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0, 0.75/getProperty('playbackRate'), 'sineInOut')
+        pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3, 0.75/getProperty('playbackRate'), 'sineInOut')
+        noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3, 0.75/getProperty('playbackRate'), 'sineInOut')
+        noteTweenAngle("NoteMove1Angle", 4, 0, 0.5/getProperty('playbackRate'), 'sineInOut')
+        noteTweenAngle("NoteMove4Angle", 7, 0, 0.5/getProperty('playbackRate'), 'sineInOut')
+    end
+    if curBeat == 396 then
+        pincerPrepare(1,true)
+        pincerPrepare(2,false)
+        pincerPrepare(3,false)
+        pincerPrepare(4,true)
+    end
+    if curBeat == 400 then
+        pincerGrab(2)
+        pincerGrab(3)
+        pincerTweenY("NoteMovePincer2Y",2,defaultPlayerStrumY1-64, 0.75/getProperty('playbackRate'), 'sineInOut')
+        noteTweenY("NoteMove2Y",5,defaultPlayerStrumY1-64, 0.75/getProperty('playbackRate'), 'sineInOut')
+        pincerTweenY("NoteMovePincer3Y",3,defaultPlayerStrumY2+64, 0.75/getProperty('playbackRate'), 'sineInOut')
+        noteTweenY("NoteMove3Y",6,defaultPlayerStrumY2+64, 0.75/getProperty('playbackRate'), 'sineInOut')
+    end
+    if curBeat == 404 then
+        pincerTweenX("NoteMovePincer2X",2,defaultPlayerStrumX2, 1/getProperty('playbackRate'), 'sineInOut')
+        noteTweenX("NoteMove2X",5,defaultPlayerStrumX2, 1/getProperty('playbackRate'), 'sineInOut')
+        pincerTweenX("NoteMovePincer3X",3,defaultPlayerStrumX1, 1/getProperty('playbackRate'), 'sineInOut')
+        noteTweenX("NoteMove3X",6,defaultPlayerStrumX1, 1/getProperty('playbackRate'), 'sineInOut')
+    end
+    if curBeat == 408 then
+        pincerTweenY("NoteMovePincer2Y",2,defaultPlayerStrumY1, 0.75/getProperty('playbackRate'), 'sineInOut')
+        noteTweenY("NoteMove2Y",5,defaultPlayerStrumY1, 0.75/getProperty('playbackRate'), 'sineInOut')
+        pincerTweenY("NoteMovePincer3Y",3,defaultPlayerStrumY2, 0.75/getProperty('playbackRate'), 'sineInOut')
+        noteTweenY("NoteMove3Y",6,defaultPlayerStrumY2, 0.75/getProperty('playbackRate'), 'sineInOut')
+    end
+    if curBeat == 412 then
+        pincerPrepare(2,true)
+        pincerPrepare(3,true)
+    end
+
+    if curBeat == 444 then
+        pincerPrepare(1,false)
+        pincerPrepare(2,false)
+        pincerPrepare(3,false)
+        pincerPrepare(4,false)
+    end
+    if curBeat == 446 then
+        pincerGrab(1)
+        pincerGrab(2)
+        pincerGrab(3)
+        pincerGrab(4)
+        pincerTweenX("NoteMovePincer1X",1,defaultPlayerStrumX0, 0.5/getProperty('playbackRate'), 'sineInOut')
+        noteTweenX("NoteMove1X",4,defaultPlayerStrumX0, 0.5/getProperty('playbackRate'), 'sineInOut')
+        pincerTweenX("NoteMovePincer2X",2,defaultPlayerStrumX1, 0.5/getProperty('playbackRate'), 'sineInOut')
+        noteTweenX("NoteMove2X",5,defaultPlayerStrumX1, 0.5/getProperty('playbackRate'), 'sineInOut')
+        pincerTweenX("NoteMovePincer3X",3,defaultPlayerStrumX2, 0.5/getProperty('playbackRate'), 'sineInOut')
+        noteTweenX("NoteMove3X",6,defaultPlayerStrumX2, 0.5/getProperty('playbackRate'), 'sineInOut')
+        pincerTweenX("NoteMovePincer4X",4,defaultPlayerStrumX3, 0.5/getProperty('playbackRate'), 'sineInOut')
+        noteTweenX("NoteMove4X",7,defaultPlayerStrumX3, 0.5/getProperty('playbackRate'), 'sineInOut')
+    end
+    if curBeat == 448 then
+        pincerPrepare(1,true)
+        pincerPrepare(2,true)
+        pincerPrepare(3,true)
+        pincerPrepare(4,true)
+    end
+
+    if curBeat == 510 then
+        if getPropertyFromClass('ClientPrefs','opponentStrums') then
+            pincerPrepare(5,false)
+            if middlescroll then
+                pincerPrepare(6,false)
+            else
+                pincerPrepare(4,false)
+            end
+        else
+            pincerPrepare(1,false)
+            pincerPrepare(4,false)
+        end
+    end
+    if curBeat == 512 then
+        if getPropertyFromClass('ClientPrefs','opponentStrums') then
+            pincerGrab(1)
+            if middlescroll then
+                pincerGrab(2)
+            else
+                pincerGrab(4)
+            end
+        else
+            pincerGrab(1)
+            pincerGrab(4)
+        end
+        shakePincerEffect = true
+    end
+    if curBeat == 640 then
+        if getPropertyFromClass('ClientPrefs','opponentStrums') then
+            pincerPrepare(5,true)
+            if middlescroll then
+                pincerPrepare(6,true)
+            else
+                pincerPrepare(4,true)
+            end
+        else
+            pincerPrepare(1,true)
+            pincerPrepare(4,true)
+        end
+        shakePincerEffect = false
+        doTweenAngle('camHUDAngle', 'camHUD', 0, 0.5/getProperty('playbackRate'), 'sineInOut')
+    end
+    if curBeat == 704 then
+        BSODEffect = true
+    end
+    if curBeat == 832 then
+        BSODEffect = false
+        for i = 0,7 do
+            setPropertyFromGroup('strumLineNotes', i, 'y', defaultPlayerStrumY0)
+            setPropertyFromGroup('strumLineNotes', 0, 'x', defaultOpponentStrumX0);
+            setPropertyFromGroup('strumLineNotes', 1, 'x', defaultOpponentStrumX1);
+            setPropertyFromGroup('strumLineNotes', 2, 'x', defaultOpponentStrumX2);
+            setPropertyFromGroup('strumLineNotes', 3, 'x', defaultOpponentStrumX3);
+            setPropertyFromGroup('strumLineNotes', 4, 'x', defaultPlayerStrumX0);
+            setPropertyFromGroup('strumLineNotes', 5, 'x', defaultPlayerStrumX1);
+            setPropertyFromGroup('strumLineNotes', 6, 'x', defaultPlayerStrumX2);
+            setPropertyFromGroup('strumLineNotes', 7, 'x', defaultPlayerStrumX3);
+        end
+    end
+
+    -- "Massacre" Modchart - For Diff "Too Hard"
+    if difficultyName == 'Too Hard' then
+        if curBeat == 832 then
+            doTweenAlpha('showWarning', 'warningText', 1, 1.5/getProperty('playbackRate'), 'sineInOut')
+        end
+        if curBeat == 840 then
+            doTweenAlpha('showWarning', 'warningText', 0, 1.5/getProperty('playbackRate'), 'sineInOut')
+        end
+        if curBeat == 848 then
+            if getPropertyFromClass('ClientPrefs','opponentStrums') then
+                pincerPrepare(5,false)
+                if middlescroll then
+                    pincerPrepare(6,false)
+                else
+                    pincerPrepare(4,false)
+                end
+            else
+                pincerPrepare(1,false)
+                pincerPrepare(4,false)
+            end
+        end
+        if curBeat == 850 then
+            if getPropertyFromClass('ClientPrefs','opponentStrums') then
+                pincerGrab(1)
+                if middlescroll then
+                    pincerGrab(2)
+                else
+                    pincerGrab(4)
+                end
+            else
+                pincerGrab(1)
+                pincerGrab(4)
+            end
+            doTweenAngle('camHUDAngle', 'camHUD', 5, 0.5/getProperty('playbackRate'), 'sineInOut')
+        end
+        if curBeat == 852 then
+            if getPropertyFromClass('ClientPrefs','opponentStrums') then
+                pincerPrepare(5,true)
+                if middlescroll then
+                    pincerPrepare(6,true)
+                else
+                    pincerPrepare(4,true)
+                end
+            else
+                pincerPrepare(1,true)
+                pincerPrepare(4,true)
+            end
+        end
+    
+        if curBeat == 868 then
+            pincerPrepare(4,false)
+        end
+        if curBeat == 870 then
+            pincerGrab(4)
+            if downscroll then
+                pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+            else
+                pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+            end
+        end
+        if curBeat == 872 then
+            pincerPrepare(4,true)
+        end
+        if curBeat == 876 then
+            pincerPrepare(1,false)
+            pincerPrepare(4,false)
+        end
+        if curBeat == 878 then
+            pincerGrab(4)
+            pincerGrab(1)
+            pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3, 0.25/getProperty('playbackRate'), 'sineInOut')
+            if downscroll then
+                pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+            else
+                pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+            end
+        end
+        if curBeat == 880 then
+            pincerPrepare(1,true)
+            pincerPrepare(4,true)
+        end
+        if curBeat == 884 then
+            pincerPrepare(1,false)
+            pincerPrepare(2,false)
+            pincerPrepare(4,false)
+        end
+        if curBeat == 886 then
+            pincerGrab(1)
+            pincerGrab(2)
+            pincerGrab(4)
+            pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0, 0.25/getProperty('playbackRate'), 'sineInOut')
+            if downscroll then
+                pincerTweenY("NoteMovePincer2Y",2,defaultPlayerStrumY1-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove2Y",5,defaultPlayerStrumY1-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+            else
+                pincerTweenY("NoteMovePincer2Y",2,defaultPlayerStrumY1+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove2Y",5,defaultPlayerStrumY1+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+            end
+        end
+        if curBeat == 888 then
+            pincerPrepare(1,true)
+            pincerPrepare(2,true)
+            pincerPrepare(4,true)
+        end
+        if curBeat == 892 then
+            pincerPrepare(2,false)
+            pincerPrepare(4,false)
+        end
+        if curBeat == 894 then
+            pincerGrab(2)
+            pincerGrab(4)
+            pincerTweenY("NoteMovePincer2Y",2,defaultPlayerStrumY1, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove2Y",5,defaultPlayerStrumY1, 0.25/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3, 0.25/getProperty('playbackRate'), 'sineInOut')
+            doTweenAngle('camHUDAngle', 'camHUD', 0, 0.5/getProperty('playbackRate'), 'sineInOut')
+        end
+        if curBeat == 896 then
+            pincerPrepare(2,true)
+            pincerPrepare(4,true)
+        end
+    
+        if curBeat == 912 then
+            if getPropertyFromClass('ClientPrefs','opponentStrums') then
+                pincerPrepare(5,false)
+                if middlescroll then
+                    pincerPrepare(6,false)
+                else
+                    pincerPrepare(4,false)
+                end
+            else
+                pincerPrepare(1,false)
+                pincerPrepare(4,false)
+            end
+        end
+        if curBeat == 914 then
+            if getPropertyFromClass('ClientPrefs','opponentStrums') then
+                pincerGrab(1)
+                if middlescroll then
+                    pincerGrab(2)
+                else
+                    pincerGrab(4)
+                end
+            else
+                pincerGrab(1)
+                pincerGrab(4)
+            end
+            doTweenAngle('camHUDAngle', 'camHUD', -5, 0.5/getProperty('playbackRate'), 'sineInOut')
+        end
+        if curBeat == 916 then
+            if getPropertyFromClass('ClientPrefs','opponentStrums') then
+                pincerPrepare(5,true)
+                if middlescroll then
+                    pincerPrepare(6,true)
+                else
+                    pincerPrepare(4,true)
+                end
+            else
+                pincerPrepare(1,true)
+                pincerPrepare(4,true)
+            end
+        end
+    
+        if curBeat == 932 then
+            pincerPrepare(1,false)
+            pincerPrepare(3,false)
+        end
+        if curBeat == 934 then
+            pincerGrab(1)
+            pincerGrab(3)
+            if downscroll then
+                pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer3Y",3,defaultPlayerStrumY2-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove3Y",6,defaultPlayerStrumY2-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+            else
+                pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer3Y",3,defaultPlayerStrumY2+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove3Y",6,defaultPlayerStrumY2+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+            end
+        end
+        if curBeat == 936 then
+            pincerPrepare(1,true)
+            pincerPrepare(3,true)
+        end
+        if curBeat == 940 then
+            pincerPrepare(1,false)
+            pincerPrepare(4,false)
+        end
+        if curBeat == 942 then
+            pincerGrab(1)
+            pincerGrab(4)
+            pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0, 0.25/getProperty('playbackRate'), 'sineInOut')
+            if downscroll then
+                pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+            else
+                pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+            end
+        end
+        if curBeat == 944 then
+            pincerPrepare(1,true)
+            pincerPrepare(4,true)
+        end
+        if curBeat == 948 then
+            pincerPrepare(1,false)
+            pincerPrepare(2,false)
+            pincerPrepare(3,false)
+            pincerPrepare(4,false)
+        end
+        if curBeat == 950 then
+            pincerGrab(1)
+            pincerGrab(2)
+            pincerGrab(3)
+            pincerGrab(4)
+            if downscroll then
+                pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer3Y",3,defaultPlayerStrumY2-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove3Y",6,defaultPlayerStrumY2-48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenAngle("NoteMove1Angle", 4, 24, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenAngle("NoteMove2Angle", 5, -24, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenAngle("NoteMove3Angle", 6, 24, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenAngle("NoteMove4Angle", 7, -24, 0.25/getProperty('playbackRate'), 'sineInOut')
+            else
+                pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                pincerTweenY("NoteMovePincer3Y",3,defaultPlayerStrumY2+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenY("NoteMove3Y",6,defaultPlayerStrumY2+48, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenAngle("NoteMove1Angle", 4, -24, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenAngle("NoteMove2Angle", 5, 24, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenAngle("NoteMove3Angle", 6, -24, 0.25/getProperty('playbackRate'), 'sineInOut')
+                noteTweenAngle("NoteMove4Angle", 7, 24, 0.25/getProperty('playbackRate'), 'sineInOut')
+            end
+            pincerTweenY("NoteMovePincer2Y",2,defaultPlayerStrumY1, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove2Y",5,defaultPlayerStrumY1, 0.25/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3, 0.25/getProperty('playbackRate'), 'sineInOut')
+    
+            pincerTweenX("NoteMovePincer1X",1,defaultPlayerStrumX0-30, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenX("NoteMove1X",4,defaultPlayerStrumX0-30, 0.25/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenX("NoteMovePincer2X",2,defaultPlayerStrumX1-15, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenX("NoteMove2X",5,defaultPlayerStrumX1-15, 0.25/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenX("NoteMovePincer3X",3,defaultPlayerStrumX2+15, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenX("NoteMove3X",6,defaultPlayerStrumX2+15, 0.25/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenX("NoteMovePincer4X",4,defaultPlayerStrumX3+30, 0.25/getProperty('playbackRate'), 'sineInOut')
+            noteTweenX("NoteMove4X",7,defaultPlayerStrumX3+30, 0.25/getProperty('playbackRate'), 'sineInOut')
+        end
+        if curBeat == 952 then
+            pincerPrepare(1,true)
+            pincerPrepare(2,true)
+            pincerPrepare(3,true)
+            pincerPrepare(4,true)
+        end
+        if curBeat == 956 then
+            pincerPrepare(1,false)
+            pincerPrepare(2,false)
+            pincerPrepare(3,false)
+            pincerPrepare(4,false)
+        end
+        if curBeat == 958 then
+            pincerGrab(1)
+            pincerGrab(2)
+            pincerGrab(3)
+            pincerGrab(4)
+            noteTweenAngle("NoteMove1Angle", 4, 0, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenAngle("NoteMove2Angle", 5, 0, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenAngle("NoteMove3Angle", 6, 0, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenAngle("NoteMove4Angle", 7, 0, 0.5/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0, 0.5/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenY("NoteMovePincer2Y",2,defaultPlayerStrumY1, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove2Y",5,defaultPlayerStrumY1, 0.5/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenY("NoteMovePincer3Y",3,defaultPlayerStrumY2, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove3Y",6,defaultPlayerStrumY2, 0.5/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3, 0.5/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenX("NoteMovePincer1X",1,defaultPlayerStrumX0, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenX("NoteMove1X",4,defaultPlayerStrumX0, 0.5/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenX("NoteMovePincer2X",2,defaultPlayerStrumX1, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenX("NoteMove2X",5,defaultPlayerStrumX1, 0.5/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenX("NoteMovePincer3X",3,defaultPlayerStrumX2, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenX("NoteMove3X",6,defaultPlayerStrumX2, 0.5/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenX("NoteMovePincer4X",4,defaultPlayerStrumX3, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenX("NoteMove4X",7,defaultPlayerStrumX3, 0.5/getProperty('playbackRate'), 'sineInOut')
+            doTweenAngle('camHUDAngle', 'camHUD', 0, 0.5/getProperty('playbackRate'), 'sineInOut')
+        end
+        if curBeat == 959 then
+            pincerSlowMove = true
+        end
+        if curBeat == 960 then
+            doTweenAlpha('showWarning', 'warningText', 1, 1.5/getProperty('playbackRate'), 'sineInOut')
+        end
+        if curBeat == 968 then
+            doTweenAlpha('showWarning', 'warningText', 0, 1.5/getProperty('playbackRate'), 'sineInOut')
+        end
+        if curBeat == 992 then
+            pincerTweenX("NoteMovePincer1X",1,defaultPlayerStrumX0-20, 2/getProperty('playbackRate'), 'sineInOut')
+            noteTweenX("NoteMove1X",4,defaultPlayerStrumX0-20, 2/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenX("NoteMovePincer2X",2,defaultPlayerStrumX1-10, 2/getProperty('playbackRate'), 'sineInOut')
+            noteTweenX("NoteMove2X",5,defaultPlayerStrumX1-10, 2/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenX("NoteMovePincer3X",3,defaultPlayerStrumX2+10, 2/getProperty('playbackRate'), 'sineInOut')
+            noteTweenX("NoteMove3X",6,defaultPlayerStrumX2+10, 2/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenX("NoteMovePincer4X",4,defaultPlayerStrumX3+20, 2/getProperty('playbackRate'), 'sineInOut')
+            noteTweenX("NoteMove4X",7,defaultPlayerStrumX3+20, 2/getProperty('playbackRate'), 'sineInOut')
+        end
+        if curBeat == 1022 then
+            pincerTweenX("NoteMovePincer1X",1,defaultPlayerStrumX0, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenX("NoteMove1X",4,defaultPlayerStrumX0, 0.5/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenX("NoteMovePincer2X",2,defaultPlayerStrumX1, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenX("NoteMove2X",5,defaultPlayerStrumX1, 0.5/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenX("NoteMovePincer3X",3,defaultPlayerStrumX2, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenX("NoteMove3X",6,defaultPlayerStrumX2, 0.5/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenX("NoteMovePincer4X",4,defaultPlayerStrumX3, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenX("NoteMove4X",7,defaultPlayerStrumX3, 0.5/getProperty('playbackRate'), 'sineInOut')
+        end
+        if curBeat == 1023 then
+            pincerSlowMove = false
+            pincerFastMove = true
+        end
+        if curBeat == 1024 then
+            doTweenAlpha('showWarning', 'warningText', 1, 1.5/getProperty('playbackRate'), 'sineInOut')
+            pincerEffect = true
+        end
+        if curBeat == 1032 then
+            doTweenAlpha('showWarning', 'warningText', 0, 1.5/getProperty('playbackRate'), 'sineInOut')
+        end
+        if curBeat == 1086 then
+            pincerFastMove = false
+            pincerEffect = false
+            pincerTweenY("NoteMovePincer1Y",1,defaultPlayerStrumY0, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove1Y",4,defaultPlayerStrumY0, 0.5/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenY("NoteMovePincer2Y",2,defaultPlayerStrumY1, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove2Y",5,defaultPlayerStrumY1, 0.5/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenY("NoteMovePincer3Y",3,defaultPlayerStrumY2, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove3Y",6,defaultPlayerStrumY2, 0.5/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenY("NoteMovePincer4Y",4,defaultPlayerStrumY3, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenY("NoteMove4Y",7,defaultPlayerStrumY3, 0.5/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenX("NoteMovePincer1X",1,defaultPlayerStrumX0, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenX("NoteMove1X",4,defaultPlayerStrumX0, 0.5/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenX("NoteMovePincer2X",2,defaultPlayerStrumX1, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenX("NoteMove2X",5,defaultPlayerStrumX1, 0.5/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenX("NoteMovePincer3X",3,defaultPlayerStrumX2, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenX("NoteMove3X",6,defaultPlayerStrumX2, 0.5/getProperty('playbackRate'), 'sineInOut')
+            pincerTweenX("NoteMovePincer4X",4,defaultPlayerStrumX3, 0.5/getProperty('playbackRate'), 'sineInOut')
+            noteTweenX("NoteMove4X",7,defaultPlayerStrumX3, 0.5/getProperty('playbackRate'), 'sineInOut')
+        end
+    end
+    -- the end!
+    if curBeat == 1088 then
+        if getPropertyFromClass('ClientPrefs','opponentStrums') then
+            noteTweenAlpha('playerNote2Alpha', 2, 0, 2/getProperty('playbackRate'), 'sineInOut')
+        end
+        if difficultyName == 'Too Hard' then
+            pincerPrepare(1,true)
+            pincerPrepare(2,true)
+            pincerPrepare(3,true)
+            pincerPrepare(4,true)
+        end
+    end
+    if curBeat == 1096 then
+        if getPropertyFromClass('ClientPrefs','opponentStrums') then
+            noteTweenAlpha('playerNote3Alpha', 3, 0, 2/getProperty('playbackRate'), 'sineInOut')
+        end
+    end
+    if curBeat == 1104 then
+        if getPropertyFromClass('ClientPrefs','opponentStrums') then
+            noteTweenAlpha('playerNote0Alpha', 0, 0, 2/getProperty('playbackRate'), 'sineInOut')
+        end
+    end
+    if curBeat == 1112 then
+        if getPropertyFromClass('ClientPrefs','opponentStrums') then
+            noteTweenAlpha('playerNote1Alpha', 1, 0, 2/getProperty('playbackRate'), 'sineInOut')
+        end
+    end
+    if curBeat == 1120 then
+        noteTweenAlpha('playerNote6Alpha', 6, 0, 2/getProperty('playbackRate'), 'sineInOut')
+    end
+    if curBeat == 1128 then
+        noteTweenAlpha('playerNote7Alpha', 7, 0, 2/getProperty('playbackRate'), 'sineInOut')
+    end
+    if curBeat == 1136 then
+        noteTweenAlpha('playerNote4Alpha', 4, 0, 2/getProperty('playbackRate'), 'sineInOut')
+    end
+    if curBeat == 1144 then
+        noteTweenAlpha('playerNote5Alpha', 5, 0, 2/getProperty('playbackRate'), 'sineInOut')
+    end
+end

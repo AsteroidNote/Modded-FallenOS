@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="ameliaTaunt.png">
+<SubTexture name="Amelia_Chuckle0000" x="2212" y="0" width="1358" height="1150" frameX="0" frameY="-1" frameWidth="1348" frameHeight="1143" />
+<SubTexture name="Amelia_Chuckle0001" x="2212" y="0" width="1358" height="1150" frameX="0" frameY="0" frameWidth="1348" frameHeight="1143" />
+<SubTexture name="Amelia_Chuckle0002" x="0" y="1198" width="1358" height="1150" frameX="0" frameY="-3" frameWidth="1348" frameHeight="1143" />
+<SubTexture name="Amelia_Chuckle0003" x="0" y="1198" width="1358" height="1150" frameX="0" frameY="-2" frameWidth="1348" frameHeight="1143" />
+<SubTexture name="Amelia_Laugh0000" x="0" y="0" width="1106" height="1198" frameX="0" frameY="-4" frameWidth="1096" frameHeight="1192" />
+<SubTexture name="Amelia_Laugh0001" x="0" y="0" width="1106" height="1198" frameX="0" frameY="-4" frameWidth="1096" frameHeight="1192" />
+<SubTexture name="Amelia_Laugh0002" x="0" y="0" width="1106" height="1198" frameX="0" frameY="-4" frameWidth="1096" frameHeight="1192" />
+<SubTexture name="Amelia_Laugh0003" x="1106" y="0" width="1106" height="1198" frameX="0" frameY="0" frameWidth="1096" frameHeight="1192" />
+<SubTexture name="Amelia_Laugh0004" x="1106" y="0" width="1106" height="1198" frameX="0" frameY="0" frameWidth="1096" frameHeight="1192" />
+<SubTexture name="Amelia_Laugh0005" x="1106" y="0" width="1106" height="1198" frameX="0" frameY="0" frameWidth="1096" frameHeight="1192" />
+</TextureAtlas>
