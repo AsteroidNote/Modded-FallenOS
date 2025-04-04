@@ -1,6 +1,8 @@
 # Hello! Here is a fast guide on how to install my modded version of FallenOS! (Don't forget that the credits go to AnbyFox!!!! :))
 ## Before you can download my modified version of the mod, you must have the original FallenOS mod, which you can find here(1.0.1): https://gamebanana.com/mods/438001
 
+## You can follow the steps written underneath or just download here: https://github.com/AsteroidNote/Modded-FallenOS/releases/tag/v0.0.1
+
 ## Custom Backgrounds, Logo, Icons and Glitch Screens!
 ### After you made sure that you have the mod, all you have to do is to download the "icons", "menuBGS", "logo.png" and "glitch.png" files and replace them in the "images" file in your mod (assets > images). My version of these files replaces your intro, logo, menu, freeplay and results background, some icons and the glitch screen (death, pause and glitch screens).
 ### !IMPORTANT NOTE! You must have the Menus Style set to "FallenCity" in order to work!! (options > game settings > hud customization > menus style)
